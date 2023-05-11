@@ -70,31 +70,7 @@ int main(int argc, char **argv)
     glViewport(0, 0, 800, 800);
 
     // Create Vertex Shader Object and get refence
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    // Attach Vertex Shader Source to the Vertex Shader Object
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    // Compile the Vertex Shader into machine code
-    glCompileShader(vertexShader);
-
-    // Create Fragment Shader Object and get reference
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // Attach the fragment shader source to the Fragment Shader Object
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    // Compile the Vertex Shader into machine code
-    glCompileShader(fragmentShader);
-
-    // Create Shader Program and get its reference
-    GLuint shaderProgram = glCreateProgram();
-
-    // Attach the vertex and Fragment shaders to the SHader Program
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    // Wrap-up/link all the shader together into the Shader Program
-    glLinkProgram(shaderProgram);
-
-    // Deete the now useless Vertex and Fragment Shaders
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+   
 
     // Create reference containers for the Vertex Array Object and the Vertex Buffer Object
     GLuint VAO, VBO, EBO;
@@ -138,7 +114,6 @@ int main(int argc, char **argv)
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         // Tell OpenGL which Shader Program we want to use
-        glUseProgram(shaderProgram);
         // Bind the VAO so OpenGL knows to use it
         glBindVertexArray(VAO);
         // DRaw the triangle using the GL_TRIANGLES primitive
@@ -152,7 +127,6 @@ int main(int argc, char **argv)
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteProgram(shaderProgram);
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
 

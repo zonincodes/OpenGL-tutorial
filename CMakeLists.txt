@@ -14,17 +14,17 @@ find_package(glfw3 3.3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR})
 
-# sub directories glad
-# add_subdirectory(external/glad)
-# target_include_directories(${PROJECT_NAME} PUBLIC external/glad)
-# target_link_directories(${PROJECT_NAME} PUBLIC external/glad)
+# sub library
 add_library(glad glad.h glad.c khrplatform.h)
 target_link_libraries(${PROJECT_NAME} glad)
 
-# headers
+# shader library
 add_library(shaders shaderClass.h shaderClass.cpp)
 target_link_libraries(${PROJECT_NAME} shaders)
-# link headers
+
+# Vertex Object Library
+add_library(VBO VBO.h VBO.cpp)
+target_link_libraries(${PROJECT_NAME} VBO)
 
 
 # link libraries ubuntu source
