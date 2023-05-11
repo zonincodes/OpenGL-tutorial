@@ -12,7 +12,6 @@ class EBO
         void Bind();
         void Unbind();
         void Delete();
-        
 };
 
 #endif

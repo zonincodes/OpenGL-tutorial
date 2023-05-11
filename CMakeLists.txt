@@ -28,8 +28,8 @@ target_link_libraries(${PROJECT_NAME} VAO)
 
 add_library(EBO EBO.h EBO.cpp)
 target_link_libraries(${PROJECT_NAME} EBO)
-configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}default.frag COPYONLY)
-configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}default.frag COPYONLY)
+configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}/default.frag COPYONLY)
+configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COPYONLY)
 
 
 
