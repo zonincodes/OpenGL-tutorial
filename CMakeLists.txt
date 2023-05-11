@@ -22,9 +22,11 @@ target_link_libraries(${PROJECT_NAME} glad)
 add_library(shaders shaderClass.h shaderClass.cpp)
 target_link_libraries(${PROJECT_NAME} shaders)
 
-# EBO
-add_library(EBO EBO.h EBO.cpp)
-target_link_libraries(${PROJECT_NAME} EBO)
+# VOA
+add_library(VAO VAO.h VAO.cpp)
+target_link_libraries(${PROJECT_NAME} VAO)
+
+
 # Vertex Object Library
 add_library(VBO VBO.h VBO.cpp)
 target_link_libraries(${PROJECT_NAME} VBO)

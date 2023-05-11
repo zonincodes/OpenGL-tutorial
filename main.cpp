@@ -56,24 +56,9 @@ int main(int argc, char **argv)
     // specify the viewport goes from x = y, y = 0, x = 800, y = 800
     glViewport(0, 0, 800, 800);
 
-    // Create Vertex Shader Object and get refence
 
     // Create reference containers for the Vertex Array Object and the Vertex Buffer Object
     GLuint VAO, VBO, EBO;
-
-    // Generate the VAO and VBO with only 1 object each
-    glGenVertexArrays(1, &VAO);
-    // Make the VAO the current Vertex Array Object by binding it
-    glBindVertexArray(VAO);
-
-    // Configure  the Vertex Attribute so that OpenGl knows how to read the VBO
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
-
-    // Enable the Vertex Attribute so that OpenGL knows to use it
-    glEnableVertexAttribArray(0);
-
-    // Bind both the VBO and VAO to 0 si we do not accidentally modify the VAO and VBO
-    glBindVertexArray(0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -89,8 +74,6 @@ int main(int argc, char **argv)
         glfwPollEvents();
     }
 
-    // delete all objects created
-    glDeleteVertexArrays(1, &VAO);
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
 
