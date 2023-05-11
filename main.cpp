@@ -77,15 +77,12 @@ int main(int argc, char **argv)
 
     // Generate the VAO and VBO with only 1 object each
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
     // Make the VAO the current Vertex Array Object by binding it
     glBindVertexArray(VAO);
 
-    // Bind the VBO specifying it's a GL_ARRAY_BUFFER
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // Introduce the vertices to the VBO
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+   
+    
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -100,14 +97,7 @@ int main(int argc, char **argv)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    // specify the color of the background
-    // glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-
-    // clean the backbuffer and assign the new color to it
-    // glClear(GL_COLOR_BUFFER_BIT);
-
-    // Swap the back buffer with the front buffer
-    // glfwSwapBuffers(window);
+    
 
     while (!glfwWindowShouldClose(window))
     {
@@ -125,7 +115,6 @@ int main(int argc, char **argv)
 
     // delete all objects created
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
