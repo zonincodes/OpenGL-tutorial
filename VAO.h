@@ -13,7 +13,7 @@ class VAO
         VAO();
 
         // Links  a VBO to the VAO using a certain laout
-        void LinkVBO(VBO VBO, GLuint layout);
+        void LinkVBO(VBO &VBO, GLuint layout);
         // Binds the VAO
         void Bind();
         // Unbinds the VAO

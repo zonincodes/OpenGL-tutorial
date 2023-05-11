@@ -1,4 +1,4 @@
-#include <VBO.h>
+#include "VBO.h"
 
 // constructure that generate a Vertex Buffer Object and links it to the vertices
 VBO::VBO(GLfloat *vertices, GLsizeiptr size)
@@ -6,7 +6,7 @@ VBO::VBO(GLfloat *vertices, GLsizeiptr size)
 
     glGenBuffers(1, &ID);
     glBindBuffer(GL_ARRAY_BUFFER, ID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
 // Binds the VBO

@@ -1,12 +1,12 @@
 #include <iostream>
-#include <glad.h>
+#include "glad.h"
 #include <GLFW/glfw3.h>
 #include <cmath>
 
-#include <shaderClass.h>
-#include <VAO.h>
-#include <VBO.h>
-#include <EBO.h>
+#include "shaderClass.h"
+#include "VAO.h"
+#include "VBO.h"
+#include "EBO.h"
 // Entry point
 
 // vertices coordinates
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 
     // Generate Shder object using shader default.vert and default.frag
     Shader shaderProgram("default.vert", "default.frag");
-    
+
     //  Generates Vertex Array Object and binds it
     VAO VAO1;
     VAO1.Bind();
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
         // DRaw the triangle using the GL_TRIANGLES primitive
         glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 
-        //swap the back buffer with the front buffer
+        // swap the back buffer with the front buffer
         glfwSwapBuffers(window);
         // take care of all GLFW events
         glfwPollEvents();
