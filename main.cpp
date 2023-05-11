@@ -50,6 +50,7 @@ int main(int argc, char **argv)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
+        return -1;
     }
 
     // Ingtroduce the window into the current context
@@ -79,7 +80,7 @@ int main(int argc, char **argv)
     // Unbind all to prevent accidentally modifying them
     VAO1.Unbind();
     VBO1.Unbind();
-    VBO1.Unbind();
+    EBO1.Unbind();
 
     while (!glfwWindowShouldClose(window))
     {
