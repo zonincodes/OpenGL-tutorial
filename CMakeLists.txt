@@ -26,6 +26,12 @@ target_link_libraries(${PROJECT_NAME} shaders)
 add_library(VAO VAO.h VAO.cpp)
 target_link_libraries(${PROJECT_NAME} VAO)
 
+add_library(EBO EBO.h EBO.cpp)
+target_link_libraries(${PROJECT_NAME} EBO)
+configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}default.frag COPYONLY)
+configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}default.frag COPYONLY)
+
+
 
 # Vertex Object Library
 add_library(VBO VBO.h VBO.cpp)

@@ -3,7 +3,10 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 
-
+#include <shaderClass.h>
+#include <VAO.h>
+#include <VBO.h>
+#include <EBO.h>
 // Entry point
 int main(int argc, char **argv)
 {
@@ -56,17 +59,25 @@ int main(int argc, char **argv)
     // specify the viewport goes from x = y, y = 0, x = 800, y = 800
     glViewport(0, 0, 800, 800);
 
+    Shader shaderProgram("default.vert", "default.frag");
+    
+    VAO VAO1;
+    VAO1.Bind();
+    VBO VBO1(vertices, sizeof(vertices));
+    EBO EBO1(indices, sizeof(indices));
 
-    // Create reference containers for the Vertex Array Object and the Vertex Buffer Object
-    GLuint VAO, VBO, EBO;
+    VAO1.LinkVBO(VBO1, 0);
+    VAO1.Unbind();
+    VBO1.Unbind();
+    VBO1.Unbind();
 
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        // Tell OpenGL which Shader Program we want to use
-        // Bind the VAO so OpenGL knows to use it
-        glBindVertexArray(VAO);
+        shaderProgram.Activate();
+        VAO1.Bind();
+
         // DRaw the triangle using the GL_TRIANGLES primitive
         glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
         glfwSwapBuffers(window);
@@ -74,6 +85,11 @@ int main(int argc, char **argv)
         glfwPollEvents();
     }
 
+    // delete all the objects we've create
+    VAO1.Delete();
+    VBO1.Delete();
+    EBO1.Delete();
+    shaderProgram.Delete();
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
 

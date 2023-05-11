@@ -1,7 +1,6 @@
-#include <EBO.h>
+#include "EBO.h"
 
-
-EBO::EBO(GLfloat *indices, GLsizeiptr size)
+EBO::EBO(GLuint *indices, GLsizeiptr size)
 {
     glGenBuffers(1, &ID);
     // Bind the EBO specifying it's a GL_ARRAY_BUFFER
@@ -19,7 +18,7 @@ void EBO::Bind()
 
 void EBO::Unbind()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, ID);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void EBO::Delete()

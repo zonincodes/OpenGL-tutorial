@@ -1,7 +1,8 @@
-#pragma once
+#ifndef VAO_CLASS_H
+#define VAO_CLASS_H
 
-#include <glad.h>
-#include <VBO.h>
+#include "glad.h"
+#include "VBO.h"
 
 class VAO
 {
@@ -13,3 +14,5 @@ class VAO
         void Unbind();
         void Delete();
 };
+
+#endif

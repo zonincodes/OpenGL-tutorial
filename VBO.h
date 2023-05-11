@@ -1,6 +1,7 @@
-#pragma once
+#ifndef VBO_CLASS_H
+#define VBO_CLASS_H
 
-#include <glad.h>
+#include "glad.h"
 
 class VBO
 {
@@ -12,3 +13,5 @@ class VBO
         void Unbind();
         void Delete();
 };
+
+#endif
