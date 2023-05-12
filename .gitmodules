@@ -1,3 +1,6 @@
 [submodule "external/glad"]
 	path = external/glad
 	url = https://github.com/zonincodes/glad_config.git
+[submodule "libs/glad"]
+	path = libs/glad
+	url = https://github.com/zonincodes/glad_config.git

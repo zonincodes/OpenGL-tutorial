@@ -7,27 +7,24 @@
 #include <VAO/VAO.h>
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
+#include <stb_image/stb_image.h>
 // Entry point
 
 // vertices coordinates
 GLfloat vertices[] =
     {
-        //            COORDINATES                       /       COLORS
-        -0.5f,    -0.5f * float(sqrt(3)) / 3,     0.0f, 0.8f, 0.3f, 0.02f, // lower left corner
-        0.5f,     -0.5f * float(sqrt(3)) / 3,     0.0f, 0.8f, 0.3f, 0.02f, // lower right corner
-        0.0f,      0.5f * float(sqrt(3)) * 2 / 3, 0.0f, 1.0f, 0.6f, 0.32f, // upper corner
-
-        -0.5f / 2, 0.5f * float(sqrt(3)) / 6,     0.0f, 0.9f, 0.45f, 0.17f, // Inner Left
-        0.5f /  2, 0.5f * float(sqrt(3)) / 6,     0.0f, 0.9f, 0.45f, 0.17f, // inner right
-        0.0f,     -0.5f * float(sqrt(3)) / 3,     0.0f, 0.8f, 0.3f, 0.02f   // inner down
+        //     COORDINATES      /       COLORS
+        -0.5f,  -0.5f,   0.0f,      0.8f, 0.3f,  0.02f, // lower left corner
+        -0.5f,   0.5f,   0.0f,      0.8f, 0.3f,  0.02f, // lower right corner
+        0.5f,    0.5f,   0.0f,      1.0f, 0.6f,  0.32f, // upper corner
+        0.5f,   -0.5f,   0.0f,      1.0f, 1.0f,  1.0f,  // lower left corner
 };
 
 // Indices for verices order
 GLuint indices[] =
     {
-        0, 3, 5, // lower left triangle
-        3, 2, 4, // lower right triangle
-        5, 4, 1  // Upper triangle
+        0, 2, 1, // Uper triangle
+        0, 3, 2, // lower triangle
 };
 
 int main(int argc, char **argv)
@@ -102,7 +99,7 @@ int main(int argc, char **argv)
         VAO1.Bind();
 
         // DRaw the triangle using the GL_TRIANGLES primitive
-        glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         // swap the back buffer with the front buffer
         glfwSwapBuffers(window);

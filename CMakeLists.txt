@@ -31,6 +31,6 @@ configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COP
 
 
 
-target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader)
+target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader stb_image)
 # link libraries ubuntu source
 target_link_libraries(${PROJECT_NAME}  glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES})
