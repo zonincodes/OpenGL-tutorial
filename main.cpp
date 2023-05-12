@@ -3,10 +3,10 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 
-#include "shaderClass.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
+#include <shader/shaderClass.h>
+#include <VAO/VAO.h>
+#include <VBO/VBO.h>
+#include <EBO/EBO.h>
 // Entry point
 
 // vertices coordinates
