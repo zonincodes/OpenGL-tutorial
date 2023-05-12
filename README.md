@@ -1,3 +1,3 @@
-# GLFW SETUP
+# OpenGL Tutorial
 
-* This is an initial setup for OpenGl with GLFW and GLAD
+* This an OpenGL Tutorial for Linux/Ubuntu with cmake.
