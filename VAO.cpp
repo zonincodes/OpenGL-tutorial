@@ -9,11 +9,11 @@ VAO::VAO()
 
 
 // links a VBO to the VAO using a certain Layout
-void VAO::LinkVBO(VBO &VBO, GLuint layout)
+void VAO::LinkAttrib(VBO &VBO, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void *offset)
 {
     VBO.Bind();
     // Configure  the Vertex Attribute so that OpenGl knows how to read the VBO
-    glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
     // Enable the Vertex Attribute so that OpenGL knows to use it
     glEnableVertexAttribArray(layout);
     VBO.Unbind();
