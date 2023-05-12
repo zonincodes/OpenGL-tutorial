@@ -84,6 +84,8 @@ int main(int argc, char **argv)
     VBO1.Unbind();
     EBO1.Unbind();
 
+    GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+
     while (!glfwWindowShouldClose(window))
     {
         // Specify the color of the background
@@ -94,6 +96,8 @@ int main(int argc, char **argv)
 
         // Tell OpenGl which Shader program we want to use
         shaderProgram.Activate();
+
+        glUniform1f(uniID, 0.5f);
         // Bind the VAO so OpenGL knows to use it
         VAO1.Bind();
 
