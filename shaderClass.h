@@ -6,7 +6,8 @@
 #include <fstream>
 #include <sstream>
 #include <cerrno>
-
+#include <iostream>
+#include <cinttypes>
 std::string get_file_contents(const char* filename);
 
 class Shader
@@ -22,5 +23,8 @@ class Shader
 
         // Deletes the Shader Progrma
         void Delete();
+    
+    private:
+        void compileErrors(u_int shader, const char *type);
 };
 #endif
