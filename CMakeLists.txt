@@ -20,28 +20,17 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 #glad
 add_subdirectory(libs)
+add_subdirectory(src)
 
-# shader library
-add_library(shaders shaderClass.h shaderClass.cpp)
-target_include_directories(shaders PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/glad/include)
 
-# VOA
-add_library(VAO VAO.h VAO.cpp)
-target_include_directories(VAO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/glad/include)
 
-# EBO
-add_library(EBO EBO.h EBO.cpp)
-target_include_directories(EBO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/glad/include)
 
 configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}/default.frag COPYONLY)
 configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COPYONLY)
 
 
 
-# Vertex Object Library
-add_library(VBO VBO.h VBO.cpp)
-target_include_directories(VBO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs/glad/include)
 
-
+target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader)
 # link libraries ubuntu source
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} VBO VAO EBO glad shaders)
+target_link_libraries(${PROJECT_NAME}  glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES})
