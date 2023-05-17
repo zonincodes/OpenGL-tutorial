@@ -14,10 +14,10 @@
 GLfloat vertices[] =
     {
         //     COORDINATES      /       COLORS
-        -0.5f,  -0.5f,   0.0f,      0.8f, 0.3f,  0.02f, // lower left corner
-        -0.5f,   0.5f,   0.0f,      0.8f, 0.3f,  0.02f, // lower right corner
-        0.5f,    0.5f,   0.0f,      1.0f, 0.6f,  0.32f, // upper corner
-        0.5f,   -0.5f,   0.0f,      1.0f, 1.0f,  1.0f,  // lower left corner
+        -0.5f,  -0.5f,   0.0f,      1.0f, 0.0f,  0.0f, // lower left corner
+        -0.5f,   0.5f,   0.0f,      0.0f, 1.0f,  0.0f, // lower right corner
+        0.5f,    0.5f,   0.0f,      0.0f, 0.0f,  1.0f, // upper right corner
+        0.5f,   -0.5f,   0.0f,      1.0f, 1.0f,  1.0f  // lower left corner
 };
 
 // Indices for verices order
