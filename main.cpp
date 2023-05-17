@@ -14,10 +14,10 @@
 GLfloat vertices[] =
     {
         //     COORDINATES      /       COLORS
-        -0.5f,  -0.5f,   0.0f,      1.0f, 0.0f,  0.0f, // lower left corner
-        -0.5f,   0.5f,   0.0f,      0.0f, 1.0f,  0.0f, // lower right corner
-        0.5f,    0.5f,   0.0f,      0.0f, 0.0f,  1.0f, // upper right corner
-        0.5f,   -0.5f,   0.0f,      1.0f, 1.0f,  1.0f  // lower left corner
+        -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,       0.0f, 0.0f, // lower left corner
+        -0.5f, 0.5f, 0.0f,      0.0f, 1.0f, 0.0f,       0.0f, 1.0f,  // lower right corner
+        0.5f, 0.5f, 0.0f,       0.0f, 0.0f, 1.0f,       1.0f, 1.0f,   // upper right corner
+        0.5f, -0.5f, 0.0f,      1.0f, 1.0f, 1.0f,       1.0f, 0.0f   // lower left corner
 };
 
 // Indices for verices order
@@ -73,8 +73,9 @@ int main(int argc, char **argv)
     EBO EBO1(indices, sizeof(indices));
 
     // links VBO to VAO
-    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void *)(3 * sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void *)(6 * sizeof(float)));
 
     // Unbind all to prevent accidentally modifying them
     VAO1.Unbind();
@@ -82,6 +83,30 @@ int main(int argc, char **argv)
     EBO1.Unbind();
 
     GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+
+    // Texture
+    int widthImg, heightImg, numColCh;
+    unsigned char* bytes = stbi_load("scooby-doo.png", &widthImg, &heightImg, &numColCh, 0);
+
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    stbi_image_free(bytes);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    GLuint tex0uni = glGetUniformLocation(shaderProgram.ID, "tex0");
+    shaderProgram.Activate();
+    glUniform1i(tex0uni, 0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -95,6 +120,8 @@ int main(int argc, char **argv)
         shaderProgram.Activate();
 
         glUniform1f(uniID, 0.0f);
+
+        glBindTexture(GL_TEXTURE_2D, texture);
         // Bind the VAO so OpenGL knows to use it
         VAO1.Bind();
 
@@ -112,8 +139,11 @@ int main(int argc, char **argv)
     VBO1.Delete();
     EBO1.Delete();
     shaderProgram.Delete();
+    glDeleteTextures(1, &texture);
+
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
+    
     // Terminate GLFW before ending the program
     glfwTerminate();
     return 0;
