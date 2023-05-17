@@ -32,6 +32,6 @@ configure_file(assets/scooby-doo.png ${CMAKE_CURRENT_BINARY_DIR}/scooby-doo.png 
 
 
 
-target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader stb_image)
+target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader stb_image textures)
 # link libraries ubuntu source
 target_link_libraries(${PROJECT_NAME}  glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES})

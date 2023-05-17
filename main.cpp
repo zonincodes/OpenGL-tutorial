@@ -7,6 +7,7 @@
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
 #include <stb_image/stb_image.h>
+#include <textures/texture.h>
 
 // Entry point
 // vertices coordinates
