@@ -2,14 +2,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
-
 #include <shader/shaderClass.h>
 #include <VAO/VAO.h>
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
 #include <stb_image/stb_image.h>
-// Entry point
 
+// Entry point
 // vertices coordinates
 GLfloat vertices[] =
     {
@@ -86,6 +85,10 @@ int main(int argc, char **argv)
 
     // Texture
     int widthImg, heightImg, numColCh;
+
+    // std::string texPath = "/glfw_tutorial/build/";
+
+    // std::cout << texPath << std::endl;
     unsigned char* bytes = stbi_load("scooby-doo.png", &widthImg, &heightImg, &numColCh, 0);
 
     GLuint texture;
