@@ -46,3 +46,30 @@ Texture::Texture(const char *image, GLenum texType, GLenum slot, GLenum format, 
     // Unbinds the OpenGL texture object so that it can't accidantally be modified
     glBindTexture(texType, 0);
 }
+
+void Texture::texUnit(Shader &shader, const char *uniform, GLuint unit)
+{
+    // Gets the Loacation of the uniform
+    GLuint texUni = glGetUniformLocation(shader.ID, uniform);
+
+    // Shader needs to be activated before changing the value of a uniform
+    shader.Activate();
+
+    // Sets the value of the uniform
+    glUniform1i(texUni, unit);
+}
+
+void Texture::Bind()
+{
+    glBindTexture(type, ID);
+}
+
+void Texture::Unbind()
+{
+    glBindTexture(type, 0);
+}
+
+void Texture::Delete()
+{
+    glDeleteTextures(1, &ID);
+}
