@@ -6,7 +6,6 @@
 #include <VAO/VAO.h>
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
-#include <stb_image/stb_image.h>
 #include <textures/texture.h>
 
 // Entry point
@@ -85,32 +84,8 @@ int main(int argc, char **argv)
     GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
     // Texture
-    int widthImg, heightImg, numColCh;
-
-    // std::string texPath = "/glfw_tutorial/build/";
-
-    // std::cout << texPath << std::endl;
-    unsigned char* bytes = stbi_load("scooby-doo.png", &widthImg, &heightImg, &numColCh, 0);
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D,  GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    stbi_image_free(bytes);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    GLuint tex0uni = glGetUniformLocation(shaderProgram.ID, "tex0");
-    shaderProgram.Activate();
-    glUniform1i(tex0uni, 0);
+   Texture scoobyDoo("scooby-doo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+   scoobyDoo.texUnit(shaderProgram, "tex0", 0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -122,10 +97,10 @@ int main(int argc, char **argv)
 
         // Tell OpenGl which Shader program we want to use
         shaderProgram.Activate();
-
+        // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.0f);
-
-        glBindTexture(GL_TEXTURE_2D, texture);
+        // Binds the texture so that it appears in rendering
+        scoobyDoo.Bind();
         // Bind the VAO so OpenGL knows to use it
         VAO1.Bind();
 
@@ -143,8 +118,7 @@ int main(int argc, char **argv)
     VBO1.Delete();
     EBO1.Delete();
     shaderProgram.Delete();
-    glDeleteTextures(1, &texture);
-
+    scoobyDoo.Delete();
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
     
