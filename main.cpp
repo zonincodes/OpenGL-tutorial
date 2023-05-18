@@ -84,7 +84,7 @@ int main(int argc, char **argv)
     GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
     // Texture
-   Texture scoobyDoo("scooby-doo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+   Texture scoobyDoo("scooby-doo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
    scoobyDoo.texUnit(shaderProgram, "tex0", 0);
 
     while (!glfwWindowShouldClose(window))
