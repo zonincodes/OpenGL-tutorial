@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <camera/camera.h>
 
 const unsigned int width = 800;
 const unsigned int height = 800;
@@ -98,7 +99,7 @@ int main(int argc, char **argv)
     // Texture
    Texture scoobyDoo("brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
    scoobyDoo.texUnit(shaderProgram, "tex0", 0);
-   
+
     // Variables that help the rotation of the pyramid
    auto rotation = 0.0f;
    double prevTime = glfwGetTime();

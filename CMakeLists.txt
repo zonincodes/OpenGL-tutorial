@@ -32,6 +32,6 @@ configure_file(assets/brick-texture.png ${CMAKE_CURRENT_BINARY_DIR}/brick-textur
 
 
 
-target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader textures stb_image glm)
+target_link_libraries(${PROJECT_NAME} glad VBO VAO EBO shader textures stb_image camera glm)
 # link libraries ubuntu source
 target_link_libraries(${PROJECT_NAME}  glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES})
