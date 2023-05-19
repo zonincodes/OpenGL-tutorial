@@ -119,6 +119,13 @@ int main(int argc, char **argv)
 
        camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
+       // Handles  camera inputs 
+       camera.Inputs(window);
+
+       // Updagtes and exports the camera matri\x to the vertex shader
+
+       camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+
        
         // Binds the texture so that it appears in rendering
         scoobyDoo.Bind();
