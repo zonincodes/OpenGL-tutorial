@@ -7,9 +7,15 @@
 #include <VBO/VBO.h>
 #include <EBO/EBO.h>
 #include <textures/texture.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-// Entry point
+const unsigned int width = 800;
+const unsigned int height = 800;
+
 // vertices coordinates
+
 GLfloat vertices[] =
     {
         //     COORDINATES      /       COLORS
@@ -97,6 +103,12 @@ int main(int argc, char **argv)
 
         // Tell OpenGl which Shader program we want to use
         shaderProgram.Activate();
+
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 proj = glm::mat4(1.0f);
+        view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+        proj = glm::perspective(glm::radians(45.0f), (float)(800/800), 0.1f, 100.0f);
         // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.0f);
         // Binds the texture so that it appears in rendering
