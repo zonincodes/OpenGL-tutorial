@@ -16,6 +16,7 @@ out vec2 texCoord;
 // Controls the scale of the vertices
 uniform float scale;
 
+// inputs the matrices needed for 3D viewing with perspective
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;

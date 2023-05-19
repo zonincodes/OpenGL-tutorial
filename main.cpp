@@ -98,12 +98,15 @@ int main(int argc, char **argv)
     // Texture
    Texture scoobyDoo("brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
    scoobyDoo.texUnit(shaderProgram, "tex0", 0);
-
+   
+    // Variables that help the rotation of the pyramid
    auto rotation = 0.0f;
    double prevTime = glfwGetTime();
 
+// Enable the depth buffer
    glEnable(GL_DEPTH_TEST);
 
+// Main while loop
     while (!glfwWindowShouldClose(window))
     {
         // Specify the color of the background
@@ -115,19 +118,25 @@ int main(int argc, char **argv)
         // Tell OpenGl which Shader program we want to use
         shaderProgram.Activate();
 
+        // simple timer
         auto crntTime = glfwGetTime();
         if(crntTime - prevTime >= 1 /60)
         {
             rotation += 0.5f;
             prevTime = crntTime;
         }
+
+        // Initializes matrices so they are not the null matrix
         glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
+
+        // Assign different transformations to each matrix
         model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
         view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
         proj = glm::perspective(glm::radians(45.0f), (float)(width/height), 0.1f, 100.0f);
 
+        // Outputs the matrices into the Vertex Shader
         int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
