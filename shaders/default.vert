@@ -16,6 +16,10 @@ out vec2 texCoord;
 // Controls the scale of the vertices
 uniform float scale;
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
+
 
 void main()
 {

@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // create a GLFWwindow object of  800, by 800 pixels, naming it "ZoninOpenGL"
-    GLFWwindow *window = glfwCreateWindow(800, 800, "ZoninOpenGL1", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(width, height, "ZoninOpenGL1", NULL, NULL);
 
     // Error check if gthe window fails to create
     if (window == NULL)
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
     gladLoadGL();
 
     // specify the viewport goes from x = y, y = 0, x = 800, y = 800
-    glViewport(0, 0, 800, 800);
+    glViewport(0, 0, width, height);
 
     // Generate Shder object using shader default.vert and default.frag
     Shader shaderProgram("default.vert", "default.frag");
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 proj = glm::mat4(1.0f);
         view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-        proj = glm::perspective(glm::radians(45.0f), (float)(800/800), 0.1f, 100.0f);
+        proj = glm::perspective(glm::radians(45.0f), (float)(width/height), 0.1f, 100.0f);
         // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.0f);
         // Binds the texture so that it appears in rendering
