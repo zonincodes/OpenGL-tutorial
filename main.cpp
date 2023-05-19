@@ -109,6 +109,13 @@ int main(int argc, char **argv)
         glm::mat4 proj = glm::mat4(1.0f);
         view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
         proj = glm::perspective(glm::radians(45.0f), (float)(width/height), 0.1f, 100.0f);
+
+        int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
         // Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
         glUniform1f(uniID, 0.0f);
         // Binds the texture so that it appears in rendering
