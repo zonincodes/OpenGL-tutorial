@@ -27,7 +27,7 @@ add_subdirectory(src)
 
 configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}/default.frag COPYONLY)
 configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COPYONLY)
-configure_file(assets/scooby-doo.png ${CMAKE_CURRENT_BINARY_DIR}/scooby-doo.png COPYONLY)
+configure_file(assets/brick-texture.png ${CMAKE_CURRENT_BINARY_DIR}/brick-texture.png COPYONLY)
 
 
 
