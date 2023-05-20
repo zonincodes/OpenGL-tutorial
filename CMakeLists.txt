@@ -25,8 +25,11 @@ add_subdirectory(src)
 
 
 
-configure_file(shaders/default.frag ${CMAKE_CURRENT_BINARY_DIR}/default.frag COPYONLY)
-configure_file(shaders/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COPYONLY)
+configure_file(shaders/default/default.frag ${CMAKE_CURRENT_BINARY_DIR}/default.frag COPYONLY)
+configure_file(shaders/default/default.vert ${CMAKE_CURRENT_BINARY_DIR}/default.vert COPYONLY)
+
+configure_file(shaders/light/light.frag ${CMAKE_CURRENT_BINARY_DIR}/light.frag)
+configure_file(shaders/light/light.vert ${CMAKE_CURRENT_BINARY_DIR}/light.vert)
 configure_file(assets/brick-texture.png ${CMAKE_CURRENT_BINARY_DIR}/brick-texture.png COPYONLY)
 
 

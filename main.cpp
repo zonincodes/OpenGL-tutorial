@@ -134,6 +134,9 @@ int main(int argc, char **argv)
     VBO1.Unbind();
     EBO1.Unbind();
 
+    // Shader for the light cube
+    
+
 
     // Texture
    Texture scoobyDoo("brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
