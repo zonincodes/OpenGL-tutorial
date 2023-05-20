@@ -112,7 +112,7 @@ int main(int argc, char **argv)
     glViewport(0, 0, width, height);
 
     // Generate Shder object using shader default.vert and default.frag
-    Shader shaderProgram("default.vert", "default.frag");
+    Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
 
     //  Generates Vertex Array Object and binds it
     VAO VAO1;
@@ -135,17 +135,14 @@ int main(int argc, char **argv)
     EBO1.Unbind();
 
     // Shader for the light cube
-    
-
+    Shader lightShader("shaders/light.vert", "shaders/light.frag");
 
     // Texture
-   Texture scoobyDoo("brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-   scoobyDoo.texUnit(shaderProgram, "tex0", 0);
+    Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    scoobyDoo.texUnit(shaderProgram, "tex0", 0);
 
-    
-
-// Enable the depth buffer
-   glEnable(GL_DEPTH_TEST);
+    // Enable the depth buffer
+    glEnable(GL_DEPTH_TEST);
 
     Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 // Main while loop
