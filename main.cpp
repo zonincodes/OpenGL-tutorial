@@ -137,6 +137,21 @@ int main(int argc, char **argv)
     // Shader for the light cube
     Shader lightShader("shaders/light.vert", "shaders/light.frag");
 
+    // Generates Vertex Array Object and binds it
+    VAO lightVAO;
+    lightVAO.Bind();
+
+    // Generates Vertex Buffer Object and Links it to the vertices
+    VBO lightVBO(lightVertices, sizeof(lightVertices));
+    // Links VBO attributes such as coordinates and colors to VAO
+    lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+    // Generates Elemnt Buffer Object and links it to indices
+    EBO lightEBO(lightIndices, sizeof(lightIndices));
+    // Unbind all to prevent accidentally modifying them
+    lightVAO.Unbind();
+    lightVBO.Unbind();
+    lightEBO.Unbind();
+
     // Texture
     Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     scoobyDoo.texUnit(shaderProgram, "tex0", 0);
