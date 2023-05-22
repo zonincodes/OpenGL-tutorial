@@ -55,14 +55,15 @@ void Camera::Inputs(GLFWwindow *window)
     {
         Position += speed * Up;
     }
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-    {
-        speed = 0.4f;
-    }
-
+    
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
     {
         Position += speed * -Up;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    {
+        speed = 0.4f;
     }
 
     else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
@@ -89,13 +90,14 @@ void Camera::Inputs(GLFWwindow *window)
 
         double mouseX;
         double mouseY;
+        // Fetches the coordinates of the cursor?
+        glfwGetCursorPos(window, &mouseX, &mouseY);
 
         // Normalize and shifts the coordinates of the cursor such that theu begin in the middle of the screen 
         // and the "transforms" them into degrees
         float rotX = sensitivity * (float)(mouseY - (height / 2)) / height;
         float rotY = sensitivity * (float)(mouseX - (width / 2)) / width;
 
-        glfwGetCursorPos(window, &mouseX, &mouseY);
 
         // Calculates upcoming vertiacal change in the Orientation
         glm::vec3 newOrientation = glm::rotate(Orientation, glm::radians(-rotX), glm::normalize(glm::cross(Orientation, Up)));

@@ -182,37 +182,42 @@ int main(int argc, char **argv)
 // Main while loop
     while (!glfwWindowShouldClose(window))
     {
-        // Specify the color of the background
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        // Specify the color the background
+       glClearColor(0.07f, 0.13, 0.17f, 1.0f);
+       // clean the back buffer and depth buffer
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Clear the buffer and assign the new color to it
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Tell OpenGl which Shader program we want to use
-        shaderProgram.Activate();
-
-       camera.Matrix(shaderProgram, "camMatrix");
-
-       // Handles  camera inputs 
+       // Handles camera
        camera.Inputs(window);
-
-       // Updagtes and exports the camera matri\x to the vertex shader
-
        camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-       
-        // Binds the texture so that it appears in rendering
-        scoobyDoo.Bind();
-        // Bind the VAO so OpenGL knows to use it
-        VAO1.Bind();
+       // Tells OpenGl which shader program we want to use
+       shaderProgram.Activate();
+       // Exports the camera position to the Fragment shader for specular lighting
+       glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+       // Export the camMatrix to the Vertex Shader of the pyramid
+       camera.Matrix(shaderProgram, "camMatrix"); 
+       // Binds texture so that it appears in the rendering
+       scoobyDoo.Bind();
+       //    Bind the VAO so OpenGL knows to use it
+       VAO1.Bind();
 
-        // DRaw the triangle using the GL_TRIANGLES primitive
-        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+       // DRaw the triangle using the GL_TRIANGLES primitive
+       glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
-        // swap the back buffer with the front buffer
-        glfwSwapBuffers(window);
-        // take care of all GLFW events
-        glfwPollEvents();
+       //    Tells OpenGL which Shader Program we want to use
+       lightShader.Activate();
+       // Exports the camMatrix to the Vertex Shader of the light cube
+       camera.Matrix(lightShader, "camMatrix");
+       // Bind the VAO so OpenGL knows to use it
+       lightVAO.Bind();
+       // Draw primitives, number of indices, datatype of indices, index of indices
+       glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+       // swap the back buffer with the front buffer
+       glfwSwapBuffers(window);
+       // take care of all GLFW events
+       glfwPollEvents();
     }
 
     // delete all the objects we've create
@@ -221,6 +226,10 @@ int main(int argc, char **argv)
     EBO1.Delete();
     shaderProgram.Delete();
     scoobyDoo.Delete();
+    lightVAO.Delete();
+    lightVBO.Delete();
+    lightEBO.Delete();
+    lightShader.Delete();
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
     
