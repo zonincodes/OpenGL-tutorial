@@ -53,7 +53,7 @@ GLuint indices[] =
 };
 
 GLfloat lightVertices[] =
-    { //     COORDINATES     //
+{ //     COORDINATES     //
         -0.1f, -0.1f, 0.1f,
         -0.1f, -0.1f, -0.1f,
         0.1f, -0.1f, -0.1f,
@@ -61,7 +61,8 @@ GLfloat lightVertices[] =
         -0.1f, 0.1f, 0.1f,
         -0.1f, 0.1f, -0.1f,
         0.1f, 0.1f, -0.1f,
-        0.1f, 0.1f, 0.1f};
+        0.1f, 0.1f, 0.1f
+};
 
 GLuint lightIndices[] =
     {
@@ -76,7 +77,8 @@ GLuint lightIndices[] =
         1, 5, 4,
         1, 4, 0,
         4, 5, 6,
-        4, 6, 7};
+        4, 6, 7
+    };
 
 int main(int argc, char **argv)
 {
@@ -137,16 +139,16 @@ int main(int argc, char **argv)
     // Shader for the light cube
     Shader lightShader("shaders/light.vert", "shaders/light.frag");
 
+    
     // Generates Vertex Array Object and binds it
     VAO lightVAO;
     lightVAO.Bind();
-
-    // Generates Vertex Buffer Object and Links it to the vertices
+    // Generates Vertex Buffer Object and links it to vertices
     VBO lightVBO(lightVertices, sizeof(lightVertices));
-    // Links VBO attributes such as coordinates and colors to VAO
-    lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
-    // Generates Elemnt Buffer Object and links it to indices
+    // Generates Element Buffer Object and links it to indices
     EBO lightEBO(lightIndices, sizeof(lightIndices));
+    // Links VBO attributes such as coordinates and colors to VAO
+    lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void *)0);
     // Unbind all to prevent accidentally modifying them
     lightVAO.Unbind();
     lightVBO.Unbind();
@@ -154,7 +156,6 @@ int main(int argc, char **argv)
 
     glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
     glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
-
     glm::mat4 lightModel = glm::mat4(1.0f);
     lightModel = glm::translate(lightModel, lightPos);
 
@@ -165,14 +166,13 @@ int main(int argc, char **argv)
     lightShader.Activate();
     glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
     glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-
     shaderProgram.Activate();
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
     glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
     glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-        // Texture
-        Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    // Texture
+    Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     scoobyDoo.texUnit(shaderProgram, "tex0", 0);
 
     // Enable the depth buffer
