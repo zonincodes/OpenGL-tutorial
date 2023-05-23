@@ -70,7 +70,7 @@ void Shader::Delete()
     glDeleteProgram(ID);
 }
 
-void Shader::compileErrors(u_int shader, const char *type)
+void Shader::compileErrors(unsigned shader, const char *type)
 {
     GLint hasCompiled;
     char infoLog[1024];

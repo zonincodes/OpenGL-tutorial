@@ -53,7 +53,7 @@ GLuint indices[] =
 };
 
 GLfloat lightVertices[] =
-    { //     COORDINATES     //
+{ //     COORDINATES     //
         -0.1f, -0.1f, 0.1f,
         -0.1f, -0.1f, -0.1f,
         0.1f, -0.1f, -0.1f,
@@ -61,7 +61,8 @@ GLfloat lightVertices[] =
         -0.1f, 0.1f, 0.1f,
         -0.1f, 0.1f, -0.1f,
         0.1f, 0.1f, -0.1f,
-        0.1f, 0.1f, 0.1f};
+        0.1f, 0.1f, 0.1f
+};
 
 GLuint lightIndices[] =
     {
@@ -76,7 +77,8 @@ GLuint lightIndices[] =
         1, 5, 4,
         1, 4, 0,
         4, 5, 6,
-        4, 6, 7};
+        4, 6, 7
+    };
 
 int main(int argc, char **argv)
 {
@@ -137,16 +139,16 @@ int main(int argc, char **argv)
     // Shader for the light cube
     Shader lightShader("shaders/light.vert", "shaders/light.frag");
 
+    
     // Generates Vertex Array Object and binds it
     VAO lightVAO;
     lightVAO.Bind();
-
-    // Generates Vertex Buffer Object and Links it to the vertices
+    // Generates Vertex Buffer Object and links it to vertices
     VBO lightVBO(lightVertices, sizeof(lightVertices));
-    // Links VBO attributes such as coordinates and colors to VAO
-    lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
-    // Generates Elemnt Buffer Object and links it to indices
+    // Generates Element Buffer Object and links it to indices
     EBO lightEBO(lightIndices, sizeof(lightIndices));
+    // Links VBO attributes such as coordinates and colors to VAO
+    lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 3 * sizeof(float), (void *)0);
     // Unbind all to prevent accidentally modifying them
     lightVAO.Unbind();
     lightVBO.Unbind();
@@ -154,7 +156,6 @@ int main(int argc, char **argv)
 
     glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
     glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
-
     glm::mat4 lightModel = glm::mat4(1.0f);
     lightModel = glm::translate(lightModel, lightPos);
 
@@ -165,14 +166,13 @@ int main(int argc, char **argv)
     lightShader.Activate();
     glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
     glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-
     shaderProgram.Activate();
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
     glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
     glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-        // Texture
-        Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    // Texture
+    Texture scoobyDoo("assets/brick-texture.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
     scoobyDoo.texUnit(shaderProgram, "tex0", 0);
 
     // Enable the depth buffer
@@ -182,37 +182,42 @@ int main(int argc, char **argv)
 // Main while loop
     while (!glfwWindowShouldClose(window))
     {
-        // Specify the color of the background
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        // Specify the color the background
+       glClearColor(0.07f, 0.13, 0.17f, 1.0f);
+       // clean the back buffer and depth buffer
+       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Clear the buffer and assign the new color to it
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Tell OpenGl which Shader program we want to use
-        shaderProgram.Activate();
-
-       camera.Matrix(shaderProgram, "camMatrix");
-
-       // Handles  camera inputs 
+       // Handles camera
        camera.Inputs(window);
-
-       // Updagtes and exports the camera matri\x to the vertex shader
-
        camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-       
-        // Binds the texture so that it appears in rendering
-        scoobyDoo.Bind();
-        // Bind the VAO so OpenGL knows to use it
-        VAO1.Bind();
+       // Tells OpenGl which shader program we want to use
+       shaderProgram.Activate();
+       // Exports the camera position to the Fragment shader for specular lighting
+       glUniform3f(glGetUniformLocation(shaderProgram.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+       // Export the camMatrix to the Vertex Shader of the pyramid
+       camera.Matrix(shaderProgram, "camMatrix"); 
+       // Binds texture so that it appears in the rendering
+       scoobyDoo.Bind();
+       //    Bind the VAO so OpenGL knows to use it
+       VAO1.Bind();
 
-        // DRaw the triangle using the GL_TRIANGLES primitive
-        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+       // DRaw the triangle using the GL_TRIANGLES primitive
+       glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
-        // swap the back buffer with the front buffer
-        glfwSwapBuffers(window);
-        // take care of all GLFW events
-        glfwPollEvents();
+       //    Tells OpenGL which Shader Program we want to use
+       lightShader.Activate();
+       // Exports the camMatrix to the Vertex Shader of the light cube
+       camera.Matrix(lightShader, "camMatrix");
+       // Bind the VAO so OpenGL knows to use it
+       lightVAO.Bind();
+       // Draw primitives, number of indices, datatype of indices, index of indices
+       glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+       // swap the back buffer with the front buffer
+       glfwSwapBuffers(window);
+       // take care of all GLFW events
+       glfwPollEvents();
     }
 
     // delete all the objects we've create
@@ -221,6 +226,10 @@ int main(int argc, char **argv)
     EBO1.Delete();
     shaderProgram.Delete();
     scoobyDoo.Delete();
+    lightVAO.Delete();
+    lightVBO.Delete();
+    lightEBO.Delete();
+    lightShader.Delete();
     // delete window pointer before ending the program
     glfwDestroyWindow(window);
     

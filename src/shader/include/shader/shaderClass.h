@@ -25,6 +25,6 @@ class Shader
         void Delete();
     
     private:
-        void compileErrors(u_int shader, const char *type);
+        void compileErrors(unsigned int shader, const char *type);
 };
 #endif
